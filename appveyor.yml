@@ -43,7 +43,6 @@ test_script:
 - cd ..\Pcap++Test
 - Bin\Pcap++Test.exe -n
 - cd ..\ExamplesTest
-- ping www.google.com
 - ipconfig
 - find_ip.bat
-- "python -m pytest"
+- "python -m pytest --interface %NetworkIP%"

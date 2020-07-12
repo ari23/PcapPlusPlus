@@ -43,10 +43,9 @@ script:
        cd Tests/Packet++Test && Bin/Packet++Test || ERR_CODE=$?;
        cd ../Pcap++Test && sudo Bin/Pcap++Test -n || ERR_CODE=$?;
        if [[ "$PYTHON3_EXE" != "" ]]; then
-          ping -c 4 www.google.com;
           ifconfig;
           ../ExamplesTest/find_ip.sh;
-          cd ../ExamplesTest && $PYTHON3_EXE -m pytest || ERR_CODE=$?;
+          cd ../ExamplesTest && $PYTHON3_EXE -m pytest --interface $NETWORK_IP || ERR_CODE=$?;
        fi;
        cd ../../ && sudo make install || ERR_CODE=$?;
     else
