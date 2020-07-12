@@ -15,4 +15,7 @@ task:
   test_script:
     - cd Tests/Packet++Test && Bin/Packet++Test
     - cd ../Pcap++Test && sudo Bin/Pcap++Test -n
+    - ping -c 4 www.google.com
+    - ifconfig
+    - ping -c 4 -I 10.128.0.45 www.google.com
     - cd ../ExamplesTest && python -m pytest
