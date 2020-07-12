@@ -9,6 +9,7 @@ class TestDNSResolver(ExampleTest):
 			'-s': 'www.google.com',
 		}
 		completed_process = self.run_example(args=args, requires_root=True)
+		print(completed_process.stdout)
 		assert 'IP address of [www.google.com] is:' in completed_process.stdout
 
 	@pytest.mark.no_network
