@@ -210,6 +210,7 @@ int main(int argc, char* argv[])
 	double arpResonseTimeMS = 0;
 	int i = 1;
 	char errString[1000];
+	memset(errString, 0, 1000);
 	LoggerPP::getInstance().setErrorString(errString, 1000);
 	while (i <= maxTries)
 	{

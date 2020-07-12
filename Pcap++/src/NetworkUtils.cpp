@@ -94,7 +94,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 		closeDeviceAtTheEnd = true;
 		if (!device->open())
 		{
-			LOG_ERROR("Cannot open device");
+			printf("Cannot open device\n");
 			return result;
 		}
 	}
@@ -119,13 +119,13 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 
 	if (!arpRequest.addLayer(&ethLayer))
 	{
-		LOG_ERROR("Couldn't build Eth layer for ARP request");
+		printf("Couldn't build Eth layer for ARP request\n");
 		return result;
 	}
 
 	if (!arpRequest.addLayer(&arpLayer))
 	{
-		LOG_ERROR("Couldn't build ARP layer for ARP request");
+		printf("Couldn't build ARP layer for ARP request\n");
 		return result;
 	}
 
@@ -135,7 +135,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	ArpFilter arpFilter(ARP_REPLY);
 	if (!device->setFilter(arpFilter))
 	{
-		LOG_ERROR("Couldn't set ARP filter for device");
+		printf("Couldn't set ARP filter for device\n");
 		return result;
 	}
 
@@ -190,7 +190,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	// check if timeout expired
 	if (res == ETIMEDOUT)
 	{
-		LOG_ERROR("ARP request time out");
+		printf("ARP request time out\n");
 		return result;
 	}
 
@@ -321,7 +321,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 		closeDeviceAtTheEnd = true;
 		if (!device->open())
 		{
-			LOG_ERROR("Cannot open device");
+			printf("Cannot open device\n");
 			return result;
 		}
 	}
@@ -336,7 +336,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 
 	if (!gatewayIP.isValid() || gatewayIP == IPv4Address::Zero)
 	{
-		LOG_ERROR("Gateway address isn't valid or couldn't find default gateway");
+		printf("Gateway address isn't valid or couldn't find default gateway\n");
 		return result;
 	}
 
@@ -346,7 +346,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 
 	if (gatewayMacAddress == MacAddress::Zero)
 	{
-		LOG_ERROR("Coulnd't resolve gateway MAC address");
+		printf("Couldn't resolve gateway MAC address\n");
 		return result;
 	}
 
@@ -361,7 +361,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 
 	if (!dnsServerIP.isValid())
 	{
-		LOG_ERROR("DNS server IP isn't valid");
+		printf("DNS server IP isn't valid\n");
 		return result;
 	}
 
@@ -390,7 +390,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 	// add all layers to packet
 	if (!dnsRequest.addLayer(&ethLayer) || !dnsRequest.addLayer(&ipLayer) || !dnsRequest.addLayer(&udpLayer) || !dnsRequest.addLayer(&dnsLayer))
 	{
-		LOG_ERROR("Couldn't construct DNS query");
+		printf("Couldn't construct DNS query\n");
 		return result;
 	}
 
@@ -400,7 +400,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 	PortFilter dnsResponseFilter(53, SRC);
 	if (!device->setFilter(dnsResponseFilter))
 	{
-		LOG_ERROR("Couldn't set DNS respnse filter");
+		printf("Couldn't set DNS response filter\n");
 		return result;
 	}
 
@@ -457,7 +457,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 	// check if timeout expired
 	if (res == ETIMEDOUT)
 	{
-		LOG_ERROR("DNS request time out");
+		printf("DNS request time out\n");
 		return result;
 	}
 
