@@ -9,45 +9,6 @@ environment:
   matrix:
     - compiler: mingw32
       pcap_lib: npcap
-    - compiler: mingw-w64
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      compiler: vs2017
-      platform: x86
-      config: Debug
-      pcap_lib: npcap
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      compiler: vs2017
-      platform: x64
-      config: Release
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      compiler: vs2019
-      platform: x86
-      config: Release
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      compiler: vs2019
-      platform: x64
-      config: Debug
-      use_zstd: true
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      compiler: vs2015
-      platform: x86
-      config: Debug
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      compiler: vs2015
-      platform: x86
-      config: Release
-      use_zstd: true
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      compiler: vs2015
-      platform: x64
-      config: Debug
-      pcap_lib: npcap
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      compiler: vs2015
-      platform: x64
-      config: Release
-      pcap_lib: npcap
-
 
 init:
 - set PATH=%PYTHON%;%PYTHON%\Scripts;%PATH%
@@ -59,7 +20,7 @@ install:
 - if "%compiler:~0,4%"=="vs20" powershell -command "Invoke-WebRequest ftp://sourceware.org/pub/pthreads-win32/pthreads-w32-2-9-1-release.zip -OutFile pthreads-w32-2-9-1-release.zip" && 7z x pthreads-w32-2-9-1-release.zip -oC:\pthreads
 - if "%use_zstd%"=="true" ci\install_zstd.bat %platform%
 - "python -m pip install --upgrade pip"
-- "python -m pip install pytest"
+- "python -m pip install -r C:\\projects\\PcapPlusPlus\\Tests\\ExamplesTest\\requirements.txt"
 
 before_build:
 - if "%pcap_lib%"=="npcap" (set PCAP_SDK_DIR=C:\Npcap-sdk) else (set PCAP_SDK_DIR=C:\WpdPack)
