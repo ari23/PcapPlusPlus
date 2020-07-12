@@ -17,5 +17,5 @@ task:
     - cd ../Pcap++Test && sudo Bin/Pcap++Test -n
     - ping -c 4 www.google.com
     - ifconfig
-    - ping -c 4 -I 10.128.0.45 www.google.com
+    - ../ExamplesTest/find_ip.sh
     - cd ../ExamplesTest && python -m pytest

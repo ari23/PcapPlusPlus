@@ -45,7 +45,7 @@ script:
        if [[ "$PYTHON3_EXE" != "" ]]; then
           ping -c 4 www.google.com;
           ifconfig;
-          ping -c 4 -I 10.182.27.224 www.google.com;
+          ../ExamplesTest/find_ip.sh;
           cd ../ExamplesTest && $PYTHON3_EXE -m pytest || ERR_CODE=$?;
        fi;
        cd ../../ && sudo make install || ERR_CODE=$?;

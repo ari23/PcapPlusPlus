@@ -45,5 +45,5 @@ test_script:
 - cd ..\ExamplesTest
 - ping www.google.com
 - ipconfig
-- ping www.google.com -4 -S 10.0.0.2
+- find_ip.bat
 - "python -m pytest"
