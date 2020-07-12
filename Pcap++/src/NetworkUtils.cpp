@@ -190,7 +190,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	// check if timeout expired
 	if (res == ETIMEDOUT)
 	{
-		LOG_ERROR("ARP request time out\n");
+		LOG_ERROR("ARP request time out");
 		return result;
 	}
 
