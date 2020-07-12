@@ -43,7 +43,7 @@ script:
        cd Tests/Packet++Test && Bin/Packet++Test || ERR_CODE=$?;
        cd ../Pcap++Test && sudo Bin/Pcap++Test -n || ERR_CODE=$?;
        if [[ "$PYTHON3_EXE" != "" ]]; then
-          cd ../ExamplesTest && $PYTHON3_EXE -m pytest -m no_network || ERR_CODE=$?;
+          cd ../ExamplesTest && $PYTHON3_EXE -m pytest || ERR_CODE=$?;
        fi;
        cd ../../ && sudo make install || ERR_CODE=$?;
     else
@@ -51,7 +51,7 @@ script:
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test" || ERR_CODE=$?;
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n -k 0" || ERR_CODE=$?;
        if [[ "$PYTHON3_EXE" != "" ]]; then
-          docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/ExamplesTest && $PYTHON3_EXE -m pytest -m no_network" || ERR_CODE=$?;
+          docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/ExamplesTest && $PYTHON3_EXE -m pytest" || ERR_CODE=$?;
        fi;
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make install" || ERR_CODE=$?;
     fi
