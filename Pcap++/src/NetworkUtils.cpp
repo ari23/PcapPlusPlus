@@ -94,7 +94,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 		closeDeviceAtTheEnd = true;
 		if (!device->open())
 		{
-			LOG_ERROR("Cannot open device\n");
+			LOG_ERROR("Cannot open device");
 			return result;
 		}
 	}
@@ -119,13 +119,13 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 
 	if (!arpRequest.addLayer(&ethLayer))
 	{
-		LOG_ERROR("Couldn't build Eth layer for ARP request\n");
+		LOG_ERROR("Couldn't build Eth layer for ARP request");
 		return result;
 	}
 
 	if (!arpRequest.addLayer(&arpLayer))
 	{
-		LOG_ERROR("Couldn't build ARP layer for ARP request\n");
+		LOG_ERROR("Couldn't build ARP layer for ARP request");
 		return result;
 	}
 
@@ -135,7 +135,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	ArpFilter arpFilter(ARP_REPLY);
 	if (!device->setFilter(arpFilter))
 	{
-		LOG_ERROR("Couldn't set ARP filter for device\n");
+		LOG_ERROR("Couldn't set ARP filter for device");
 		return result;
 	}
 
