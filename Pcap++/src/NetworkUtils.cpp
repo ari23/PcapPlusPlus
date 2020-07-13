@@ -348,7 +348,7 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 
 	if (gatewayMacAddress == MacAddress::Zero)
 	{
-		printf("Couldn't resolve gateway MAC address, error is: %s\n", errString);
+		printf("Couldn't resolve gateway MAC address, error is: %s\n", errString.c_str());
 		return result;
 	}
 
