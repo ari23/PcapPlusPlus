@@ -7,6 +7,7 @@ class TestDNSResolver(ExampleTest):
 	def test_sanity(self):
 		args = {
 			'-s': 'www.google.com',
+			'-t': '10'
 		}
 		completed_process = self.run_example(args=args, requires_root=True)
 		print(completed_process.stdout)
@@ -32,6 +33,7 @@ class TestDNSResolver(ExampleTest):
 		args = {
 			'-s': 'www.google.com',
 			'-i': interface_ip_name,
+			'-t': '10'
 		}
 		completed_process = self.run_example(args=args, requires_root=True)
 		assert 'IP address of [www.google.com] is:' in completed_process.stdout

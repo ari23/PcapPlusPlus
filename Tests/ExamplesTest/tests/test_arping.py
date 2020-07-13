@@ -29,6 +29,9 @@ class TestArping(ExampleTest):
 			'-c': '3'
 		}
 		completed_process = self.run_example(args=args, requires_root=True)
+		print("completed_process.stdout:\n\n", completed_process.stdout)
+		print("completed_process.stdout.splitlines:\n\n", completed_process.stdout.splitlines())
+
 		assert len(completed_process.stdout.splitlines()) == 3
 		for idx, line in enumerate(completed_process.stdout.splitlines()):
 			assert 'Arping  index={idx} : ARP request time out'.format(idx=idx+1) == line

@@ -19,7 +19,7 @@
 #define ETIMEDOUT  10060
 #endif
 
-#define DNS_PORT	    53
+#define DNS_PORT   53
 
 
 namespace pcpp
