@@ -231,7 +231,8 @@ void receiveFile(IPv4Address pitcherIP, IPv4Address catcherIP, int packetPerSec)
 
 	// discover the MAC address of the catcher by sending an ARP ping to it
 	double arpResTO = 0;
-	MacAddress catcherMacAddr = NetworkUtils::getInstance().getMacAddress(catcherIP, dev, arpResTO, pitcherMacAddr, pitcherIP, 10);
+	std::string errString;
+	MacAddress catcherMacAddr = NetworkUtils::getInstance().getMacAddress(catcherIP, dev, arpResTO, errString, pitcherMacAddr, pitcherIP, 10);
 	if (catcherMacAddr == MacAddress::Zero)
 		EXIT_WITH_ERROR("Cannot find catcher MAC address");
 
@@ -419,7 +420,8 @@ void sendFile(std::string filePath, IPv4Address pitcherIP, IPv4Address catcherIP
 
 	// discover the MAC address of the catcher by sending an ARP ping to it
 	double arpResTO = 0;
-	MacAddress catcherMacAddr = NetworkUtils::getInstance().getMacAddress(catcherIP, dev, arpResTO, pitcherMacAddr, pitcherIP, 10);
+	std::string errString;
+	MacAddress catcherMacAddr = NetworkUtils::getInstance().getMacAddress(catcherIP, dev, arpResTO, errString, pitcherMacAddr, pitcherIP, 10);
 	if (catcherMacAddr == MacAddress::Zero)
 		EXIT_WITH_ERROR("Cannot find catcher MAC address");
 

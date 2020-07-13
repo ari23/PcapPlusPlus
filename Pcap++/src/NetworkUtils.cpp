@@ -82,10 +82,11 @@ static void arpPacketRecieved(RawPacket* rawPacket, PcapLiveDevice* device, void
 }
 
 
-MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* device, double& arpResponseTimeMS,
+MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* device, double& arpResponseTimeMS, std::string& errString,
 		MacAddress sourceMac, IPv4Address sourceIP, int arpTimeout) const
 {
 	MacAddress result = MacAddress::Zero;
+	errString = "";
 
 	// open the device if not already opened
 	bool closeDeviceAtTheEnd = false;
@@ -94,7 +95,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 		closeDeviceAtTheEnd = true;
 		if (!device->open())
 		{
-			LOG_ERROR("Cannot open device");
+			errString = "Cannot open device";
 			return result;
 		}
 	}
@@ -119,13 +120,13 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 
 	if (!arpRequest.addLayer(&ethLayer))
 	{
-		LOG_ERROR("Couldn't build Eth layer for ARP request");
+		errString = "Couldn't build Eth layer for ARP request";
 		return result;
 	}
 
 	if (!arpRequest.addLayer(&arpLayer))
 	{
-		LOG_ERROR("Couldn't build ARP layer for ARP request");
+		errString = "Couldn't build ARP layer for ARP request";
 		return result;
 	}
 
@@ -135,7 +136,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	ArpFilter arpFilter(ARP_REPLY);
 	if (!device->setFilter(arpFilter))
 	{
-		LOG_ERROR("Couldn't set ARP filter for device");
+		errString = "Couldn't set ARP filter for device";
 		return result;
 	}
 
@@ -190,7 +191,7 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 	// check if timeout expired
 	if (res == ETIMEDOUT)
 	{
-		LOG_ERROR("ARP request time out");
+		errString = "ARP request time out";
 		return result;
 	}
 
@@ -342,11 +343,12 @@ IPv4Address NetworkUtils::getIPv4Address(std::string hostname, PcapLiveDevice* d
 
 	// send the ARP request to find gateway MAC address
 	double arpResTime;
-	MacAddress gatewayMacAddress = getMacAddress(gatewayIP, device, arpResTime);
+	std::string errString;
+	MacAddress gatewayMacAddress = getMacAddress(gatewayIP, device, arpResTime, errString);
 
 	if (gatewayMacAddress == MacAddress::Zero)
 	{
-		printf("Couldn't resolve gateway MAC address\n");
+		printf("Couldn't resolve gateway MAC address, error is: %s\n", errString);
 		return result;
 	}
 

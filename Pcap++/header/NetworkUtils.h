@@ -53,7 +53,7 @@ namespace pcpp
 		 * @return The resolved MAC address or MacAddress#Zero if an error occurred or address could not be resolved. Errors will be printed
 		 * to log
 		 */
-		MacAddress getMacAddress(IPv4Address ipAddr, PcapLiveDevice* device, double& arpResponseTimeMS,
+		MacAddress getMacAddress(IPv4Address ipAddr, PcapLiveDevice* device, double& arpResponseTimeMS, std::string& errString,
 				MacAddress sourceMac = MacAddress::Zero, IPv4Address sourceIP = IPv4Address::Zero, int arpTimeout = -1) const;
 
 

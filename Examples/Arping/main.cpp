@@ -209,13 +209,11 @@ int main(int argc, char* argv[])
 	// let's go
 	double arpResonseTimeMS = 0;
 	int i = 1;
-	char errString[1000];
-	memset(errString, 0, 1000);
-	LoggerPP::getInstance().setErrorString(errString, 1000);
+	std::string errString;
 	while (i <= maxTries)
 	{
 		// use the getMacAddress utility to send an ARP request and resolve the MAC address
-		MacAddress result = NetworkUtils::getInstance().getMacAddress(targetIP, dev, arpResonseTimeMS, sourceMac, sourceIP, timeoutSec);
+		MacAddress result = NetworkUtils::getInstance().getMacAddress(targetIP, dev, arpResonseTimeMS, errString, sourceMac, sourceIP, timeoutSec);
 
 		// failed fetching MAC address
 		if (result == MacAddress::Zero)

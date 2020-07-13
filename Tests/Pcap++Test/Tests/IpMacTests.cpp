@@ -212,12 +212,13 @@ PTF_TEST_CASE(TestGetMacAddress)
 		pcpp::IPv4Address ipAddr(ip);
 		PTF_ASSERT_TRUE(ipAddr.isValid());
 		pcpp::LoggerPP::getInstance().supressErrors();
-		result = pcpp::NetworkUtils::getInstance().getMacAddress(ipAddr, liveDev, time);
+		std::string errString;
+		result = pcpp::NetworkUtils::getInstance().getMacAddress(ipAddr, liveDev, time, errString);
 		pcpp::LoggerPP::getInstance().enableErrors();
 		if (result != pcpp::MacAddress::Zero)
 		{
 			PTF_ASSERT_GREATER_OR_EQUAL_THAN(time, 0, u64);
-			result = pcpp::NetworkUtils::getInstance().getMacAddress(ipAddr, liveDev, time, liveDev->getMacAddress(), liveDev->getIPv4Address());
+			result = pcpp::NetworkUtils::getInstance().getMacAddress(ipAddr, liveDev, time, errString, liveDev->getMacAddress(), liveDev->getIPv4Address());
 			PTF_ASSERT_NOT_EQUAL(result, pcpp::MacAddress::Zero, object);
 			break;
 		}
