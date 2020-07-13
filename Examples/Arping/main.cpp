@@ -218,7 +218,7 @@ int main(int argc, char* argv[])
 		// failed fetching MAC address
 		if (result == MacAddress::Zero)
 		{
-			printf("Arping  index=%d : %s", i, errString.c_str());
+			printf("Arping  index=%d : %s\n", i, errString.c_str());
 		}
 		else // Succeeded fetching MAC address
 		{
