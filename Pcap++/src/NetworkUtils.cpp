@@ -205,9 +205,9 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 		device->clearFilter();
 
 	result = data.result;
-	std::stringstream stream;
-	stream << "ALL OK! MACAddress=" << result.toString() << ";res=" << res << ";ETIMEDOUT=" << ETIMEDOUT << ";EINVAL=" << EINVAL << ";EPERM=" << EPERM;
-	errString = stream.str();
+	// std::stringstream stream;
+	// stream << "ALL OK! MACAddress=" << result.toString() << ";res=" << res << ";ETIMEDOUT=" << ETIMEDOUT << ";EINVAL=" << EINVAL << ";EPERM=" << EPERM;
+	// errString = stream.str();
 	arpResponseTimeMS = data.arpResponseTime;
 
 	return result;
