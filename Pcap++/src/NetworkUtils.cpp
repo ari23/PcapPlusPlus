@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <pthread.h>
+#include <sstream>
 #include "Logger.h"
 #include "Packet.h"
 #include "EthLayer.h"
@@ -204,10 +205,9 @@ MacAddress NetworkUtils::getMacAddress(IPv4Address ipAddr, PcapLiveDevice* devic
 		device->clearFilter();
 
 	result = data.result;
-	errString = "ALL OK! MACAddress = " + result.toString();
-	#if __cplusplus >= 201103L || (defined(_MSC_VER) && _MSC_VER >= 1900)
-	errString += " res = " + std::to_string(res);
-	#endif 
+	std::stringstream stream;
+	stream << "ALL OK! MACAddress=" << result.toString() << ";res=" << res << ";ETIMEDOUT=" << ETIMEDOUT << ";EINVAL=" << EINVAL << ";EPERM=" << EPERM;
+	errString = stream.str();
 	arpResponseTimeMS = data.arpResponseTime;
 
 	return result;
