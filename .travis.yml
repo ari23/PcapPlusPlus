@@ -18,7 +18,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
        docker pull seladb/$DOCKER_IMAGE:latest;
-       docker run -itd --name $DOCKER_IMAGE -v $(pwd):/PcapPlusPlus seladb/$DOCKER_IMAGE;
+       docker run -itd --name $DOCKER_IMAGE --net=host -v $(pwd):/PcapPlusPlus seladb/$DOCKER_IMAGE;
     fi
 
 before_script:
@@ -53,7 +53,9 @@ script:
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Packet++Test && Bin/Packet++Test" || ERR_CODE=$?;
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n -k 0" || ERR_CODE=$?;
        if [[ "$PYTHON3_EXE" != "" ]]; then
-          docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/ExamplesTest && $PYTHON3_EXE -m pytest" || ERR_CODE=$?;
+          ifconfig;
+          source ../ExamplesTest/find_ip.sh;
+          docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/ExamplesTest && $PYTHON3_EXE -m pytest --interface $NETWORK_IP" || ERR_CODE=$?;
        fi;
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make install" || ERR_CODE=$?;
     fi
