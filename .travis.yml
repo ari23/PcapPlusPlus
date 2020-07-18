@@ -54,7 +54,7 @@ script:
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/Pcap++Test && Bin/Pcap++Test -n -k 0" || ERR_CODE=$?;
        if [[ "$PYTHON3_EXE" != "" ]]; then
           ifconfig;
-          source ../ExamplesTest/find_ip.sh;
+          source Tests/ExamplesTest/find_ip.sh;
           docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus/Tests/ExamplesTest && $PYTHON3_EXE -m pytest --interface $NETWORK_IP" || ERR_CODE=$?;
        fi;
        docker exec -i $DOCKER_IMAGE bash -c "cd PcapPlusPlus && make install" || ERR_CODE=$?;
